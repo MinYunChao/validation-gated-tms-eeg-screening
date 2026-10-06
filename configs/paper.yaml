@@ -1,0 +1,33 @@
+model:
+  patch_size: 50
+  embedding_dim: 128
+  graph_hidden_dim: 128
+  latent_dim: 128
+  window_sizes: [6, 2]
+  window_strides: [2, 1]
+  temporal_decay: 0.2
+  dropout: 0.6
+  num_classes: 2
+
+train:
+  seed: 20260611
+  epochs: 30
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.0005
+  patience: 10
+  num_workers: 0
+  device: auto
+  test_fraction: 0.2
+  validation_fraction: 0.2
+
+residual:
+  enabled: true
+  covariance_shrinkage: 0.2
+  lambda_candidates: [0.0, 0.02, 0.05, 0.08, 0.10]
+
+metadata:
+  enabled: true
+  c_values: [0.01, 0.1, 1.0]
+  confidence_values: [0.05, 0.10, 0.20]
+  policies: [clean, specificity_guard, sensitivity_guard, bidirectional_guard]

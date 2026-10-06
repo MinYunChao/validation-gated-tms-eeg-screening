@@ -1,0 +1,32 @@
+model:
+  patch_size: 32
+  embedding_dim: 16
+  graph_hidden_dim: 12
+  latent_dim: 12
+  window_sizes: [2]
+  window_strides: [1]
+  temporal_decay: 0.5
+  dropout: 0.1
+
+train:
+  seed: 7
+  epochs: 2
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  patience: 2
+  num_workers: 0
+  device: cpu
+  test_fraction: 0.2
+  validation_fraction: 0.2
+
+residual:
+  enabled: true
+  covariance_shrinkage: 0.2
+  lambda_candidates: [0.0, 0.1]
+
+metadata:
+  enabled: true
+  c_values: [0.1]
+  confidence_values: [0.1]
+  policies: [clean, bidirectional_guard]

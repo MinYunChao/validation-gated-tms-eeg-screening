@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Anonymous research release for validation-gated, subject-exclusive TMS-EEG screening.">
+  <title>Validation-Gated TMS-EEG Screening</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">TMS-EEG Screening</a>
+    <nav aria-label="Primary navigation">
+      <a href="#method">Method</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#release">Release</a>
+      <a href="paper/validation-gated-tms-eeg-screening-anonymized.pdf">Paper</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Open research implementation</p>
+        <h1>Validation-Gated TMS-EEG Screening</h1>
+        <p class="lead">A subject-exclusive pipeline that keeps waveform learning clean and admits auxiliary evidence only at the decision level when validation data support it.</p>
+        <div class="actions">
+          <a class="button primary" href="paper/validation-gated-tms-eeg-screening-anonymized.pdf">Read the paper</a>
+          <a class="button secondary" href="https://github.com/MinYunChao/validation-gated-tms-eeg-screening">View code</a>
+        </div>
+      </div>
+      <figure class="hero-figure">
+        <img src="assets/pipeline.png" alt="Diagram of the waveform backbone and validation-gated decision-level evidence pipeline">
+      </figure>
+    </section>
+
+    <section class="boundary" aria-label="Use limitation">
+      <strong>Research use only.</strong>
+      <span>This release is not a medical device and does not support standalone diagnosis, treatment selection, or clinical deployment.</span>
+    </section>
+
+    <section id="method" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Design</p>
+        <h2>Waveform first, auxiliary evidence under validation control</h2>
+      </div>
+      <div class="method-grid">
+        <article>
+          <span class="step">01</span>
+          <h3>Subject-exclusive protocol</h3>
+          <p>Every epoch from one subject remains in exactly one partition. Model selection, thresholds, residual strength, and gating rules use training and validation subjects only.</p>
+        </article>
+        <article>
+          <span class="step">02</span>
+          <h3>Clean waveform backbone</h3>
+          <p>A spatio-temporal graph network operates on aligned waveform patches without subject-identity normalization or record-level clinical inputs.</p>
+        </article>
+        <article>
+          <span class="step">03</span>
+          <h3>Decision-level evidence</h3>
+          <p>Covariance and non-diagnostic baseline evidence remain separate from waveform features and can alter a decision only through a validation-selected policy.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="evidence" class="section evidence">
+      <div class="section-heading">
+        <p class="eyebrow">Internal evidence</p>
+        <h2>Results are reported with their uncertainty</h2>
+        <p>The fixed split explains decision changes; nested evaluation tests whether those changes persist across partitions. Neither is external validation.</p>
+      </div>
+      <div class="evidence-layout">
+        <figure>
+          <img src="assets/performance.png" alt="Aggregate comparison of internal model performance">
+        </figure>
+        <dl class="metrics">
+          <div><dt>89</dt><dd>subjects in the governed cohort</dd></div>
+          <div><dt>8,307</dt><dd>retained TMS-EEG epochs</dd></div>
+          <div><dt>0.7662</dt><dd>fixed-split subject F1 with residual evidence</dd></div>
+          <div><dt>0.6384</dt><dd>mean nested subject F1 with validation-gated metadata</dd></div>
+        </dl>
+      </div>
+      <p class="interpretation">The fixed-split residual improvement had a bootstrap interval crossing zero and did not reproduce consistently in nested evaluation. The clean waveform model remains the default; auxiliary evidence is exploratory.</p>
+    </section>
+
+    <section id="release" class="section release">
+      <div class="section-heading">
+        <p class="eyebrow">Public release</p>
+        <h2>Runnable code without participant data</h2>
+      </div>
+      <div class="release-grid">
+        <div>
+          <h3>Included</h3>
+          <ul>
+            <li>Installable Python package and command-line interface</li>
+            <li>Synthetic data generator and CPU smoke test</li>
+            <li>Leakage checks, subject aggregation, metrics, and bootstrap tools</li>
+            <li>Aggregate manuscript results and model documentation</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Deliberately excluded</h3>
+          <ul>
+            <li>Human-participant recordings and clinical tables</li>
+            <li>Identifiers, split manifests, and individual predictions</li>
+            <li>Historical checkpoints and optimizer states</li>
+            <li>Names, emails, affiliations, funding, and local paths</li>
+          </ul>
+        </div>
+      </div>
+      <pre><code>python -m pip install -e ".[dev]"
+tms-eeg make-synthetic --output data/synthetic_demo.npz --subjects 30
+bash scripts/run_smoke_test.sh</code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <span>Anonymous public research artifact</span>
+    <a href="https://github.com/MinYunChao/validation-gated-tms-eeg-screening/blob/main/docs/DATA.md">Data statement</a>
+    <a href="https://github.com/MinYunChao/validation-gated-tms-eeg-screening/blob/main/MODEL_CARD.md">Model card</a>
+    <a href="https://github.com/MinYunChao/validation-gated-tms-eeg-screening/blob/main/LICENSE">MIT License</a>
+  </footer>
+</body>
+</html>

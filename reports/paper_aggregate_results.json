@@ -1,0 +1,34 @@
+{
+  "scope": "Aggregate manuscript results only; no subject-level rows or predictions are included.",
+  "cohort": {
+    "subjects": 89,
+    "controls": 44,
+    "mdd": 45,
+    "epochs": 8307
+  },
+  "fixed_subject_exclusive_split": {
+    "subjects": {"train": 55, "validation": 16, "test": 18},
+    "clean": {"epoch_f1": 0.5983, "subject_f1": 0.6625},
+    "decision_level_residual": {
+      "epoch_f1": 0.6726,
+      "subject_f1": 0.7662,
+      "sensitivity": 1.0,
+      "specificity": 0.5556,
+      "balanced_accuracy": 0.7778,
+      "auc": 0.6543,
+      "confusion": {"tn": 5, "fp": 4, "fn": 0, "tp": 9},
+      "paired_subject_bootstrap_f1_delta": 0.1037,
+      "paired_subject_bootstrap_95_ci": [-0.1236, 0.3290]
+    },
+    "eegnet_source_only": {"epoch_f1": 0.5216, "subject_f1": 0.4375}
+  },
+  "five_fold_nested_subject_level": {
+    "clean_subject_f1_mean": 0.5778,
+    "clean_subject_f1_std": 0.0617,
+    "decision_level_residual_subject_f1_mean": 0.5706,
+    "decision_level_residual_subject_f1_std": 0.1691,
+    "validation_gated_metadata_subject_f1_mean": 0.6384,
+    "validation_gated_metadata_subject_f1_std": 0.0850
+  },
+  "interpretation": "Internal research evidence only. The fixed-split residual improvement was uncertain and did not reproduce consistently across nested folds."
+}

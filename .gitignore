@@ -1,0 +1,50 @@
+# Restricted or generated data
+data/
+Dataset/
+outputs/
+Results/
+results/
+logs/
+wandb/
+checkpoints/
+predictions/
+
+# Model artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.joblib
+*.pkl
+*.pickle
+*.onnx
+
+# Human-participant tables and common exports
+*.xlsx
+*.xls
+*.sav
+*.fif
+*.edf
+*.set
+*.mat
+subject_predictions.csv
+split.json
+
+# Python and tools
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+local-environment.txt
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
